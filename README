@@ -1,6 +1,6 @@
 alertrocketchatgroup plugin for DokuWiki
 
-Alerta grupo do rocketchat quando houver mudancas
+Alerts rocketchat groups when there are changes to pages
 
 ## Configure
 1. Create an Incoming Webhook on Rocket.Chat
