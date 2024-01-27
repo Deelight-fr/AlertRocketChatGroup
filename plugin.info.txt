@@ -1,0 +1,7 @@
+base   alertrocketchatgroup
+author JPDroid
+email  jpdroid.jpo@gmail.com
+date   2024-01-27
+name   AlertRocketChatGroup plugin
+desc   Alerta grupo do rocketchat quando houver mudancas
+url    https://www.dokuwiki.org/plugin:alertrocketchatgroup
