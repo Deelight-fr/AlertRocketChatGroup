@@ -2,6 +2,18 @@ alertrocketchatgroup plugin for DokuWiki
 
 Alerta grupo do rocketchat quando houver mudancas
 
+## Configure
+1. Create an Incoming Webhook on Rocket.Chat
+2. Enter the webhook into the rocketchat configuration section in DokuWiki's Configuration Settings
+3. In the "Url Server" put url of rocketchat. eg:https://rocketchat.mydomain.com:3000
+4. In then "Payload of WebHook(comma separated)", put all payloads separeted by comma
+5. In "Group's name in DokuWiki (comma separated)", put name pages  trigger message, separeted by comma. eg: wiki, ti
+
+Each group must have its own payload, enter the payload separated by comma in the same order as the groups.
+Eg:
+payloads: 65b460ed50e121a99413064b/8Mt7ys2HZcQpnC75SyMdC3hw2gDM7ER4g7Yb4mpHPYBKC5KF,65b460ed50e121a99413064b/8Mt7ys2HZcQpnC75SyMdC3hw2gDM7ER4g7Yb4mpHPYBKC5KF
+groups: TI, WIKI
+
 All documentation for this plugin can be found at
 https://github.com/jpdroid/AlertRocketChatGroup
 
