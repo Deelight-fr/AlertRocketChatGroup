@@ -8,5 +8,4 @@
 //$conf['fixme']    = 'FIXME';
 $conf['jurlserver'] = '';
 $conf['jpayloads'] = '';
-$conf['jgroups'] = '';
 

@@ -46,7 +46,8 @@ class action_plugin_alertrocketchatgroup extends ActionPlugin
 		}
 		return;
     }
-	
+
+
 	private function handle() {
 		global $conf;
 		global $ID;
@@ -56,55 +57,39 @@ class action_plugin_alertrocketchatgroup extends ActionPlugin
 		// filter by namespaces
 		$urlServer = $this->getConf('jurlserver');
 		$payloads = $this->getConf('jpayloads');
-		$grupos = $this->getConf('jgroups');
 		if (!empty($urlServer)) {
 		  $arrPayloads = explode(',', $payloads);
 		}
-		if (!empty($grupos)) {
-			$arrGrupos = explode(',', $grupos);
-		}
 
-		$fullname = $INFO['userinfo']['name'];
+        $fullname = $INFO['userinfo']['name'];
+        $uid = $INFO['userinfo']['uid'];
     	$page     = $INFO['namespace'] . $INFO['id'];
-   		$title    = "{$fullname} atualizou a TRIDF-WIKI <{$this->urlize()}|{$INFO['id']}>";
+        $title    = "{$uid} a mis à jour le wiki : {$this->urlize()}";
 
-		//enviar mensagem para os grupos
-		foreach($arrGrupos as $chave =>$gpr){
-			if(explode(':',$INFO['id'])[0] == $gpr){
-				$pgIndex = $chave;
-				$pgNome = $gpr;
-				$pgPayload = $arrPayloads[$pgIndex];
+        foreach($arrPayloads as $idPayload => $pgPayload)
+        {
+
 				if(!isset($pgPayload) || $pgPayload == '')
 				  return;
 
-
 				// text
 				$data = array(
-					"text"                  =>  $title
+                    "text"                  =>  $title,
 				);
 				
-				// attachments
-				// if (!empty($SUM)) {
-					// $data['attachments'] = array(array(
-					// "title_link"       => "{$this->urlize()}",
-					// "title"            => "Summary",
-					// "text"             => "{$SUM}\n- {$fullname}",
-					// "color"            => "#AB4531"
-					// ));
-				// }
-
 				// init curl
-				$json = json_encode($data);
+                $json = json_encode($data);
+
 				$webhook = $urlServer;
 				$urlFullWebHook =  $webhook.'/hooks/'.$pgPayload;
 				$ch = curl_init($urlFullWebHook);
 				 // submit payload
-				 $pay = urlencode($json);
 				 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-				 curl_setopt($ch, CURLOPT_POSTFIELDS, "payload={$pay}");
-				 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				 curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 				 $result = curl_exec($ch);
-			 
+
 				 // ideally display only for Admin users and/or in debugging mode
 				 if ($result === false){
 				   echo 'cURL error when posting Wiki save notification to Rocket.Chat+: ' . curl_error($ch);
@@ -112,16 +97,9 @@ class action_plugin_alertrocketchatgroup extends ActionPlugin
 			 
 				 // close curl
 				 curl_close($ch);
-			 
-
 			
-			}
-		}
+        }
 
-		
-
-
-		
 	}
 
 

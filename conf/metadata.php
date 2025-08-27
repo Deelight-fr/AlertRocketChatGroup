@@ -9,6 +9,5 @@
 //$meta['fixme'] = array('string');
 $meta['jurlserver'] = array('string');
 $meta['jpayloads'] = array('string');
-$meta['jgroups'] = array('string');
 
 
